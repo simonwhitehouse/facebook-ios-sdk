@@ -96,6 +96,9 @@ static BOOL g_loadingConfiguration;
     g_loadingConfiguration = NO;
     g_requeryFinishedForAppStart = YES;
     if (error) {
+        for (FBSDKAppEventsConfigurationManagerBlock completionBlock in self.completionBlocks) {
+          completionBlock();
+        }
       return;
     }
     g_configuration = [[FBSDKAppEventsConfiguration alloc] initWithJSON:response];
